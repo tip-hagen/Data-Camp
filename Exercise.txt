@@ -1,31 +1,21 @@
-Performance Review
-As part of your rollout of the AI Agent Usage Policy at GlobalTech Solutions, you are auditing how employees use off-the-shelf agentic tools.
+Don't fail when you scale!
 
-You notice that one employee is using an AI agent to generate automated sales emails that leverage product summaries. However, they copy and paste the output directly into emails without checking for accuracy, despite a recent incident where an agent included outdated pricing.
+You're an AI Engineer at Nile, an online retailer and logistics company, working on preparing its first agentic support system for scaling. So far, it has been exposed to 5% of the platform users, and the feedback and metrics are looking great!
 
-What is the best practice not being followed here?
+Next up is to scale this to 50% of users so you can A/B test the impact, but before you do, you want to plan for potential issues that may arise.
 
+Which of the following are common issues found when scaling?
 Answer the question
 50XP
 Possible Answers
-Select one answer
-
-Design useful prompts with context.
-PRESS
+Select all correct answers
+Higher-than-expected costs
+press
 1
-
-Understand the agent's capabilities and limitations.
-PRESS
+Higher-than-expected latency
+press
 2
-
-Always verify your agent's output.
-PRESS
+Improved multi-agent coordination
+press
 3
-
-Always be mindful of costs.
-PRESS
-4
-
-Use AI agents responsibly.
-PRESS
-5
+Increased error rate

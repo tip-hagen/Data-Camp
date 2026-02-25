@@ -1,88 +1,99 @@
-1. Agentic Systems in the Real World
-00:00 - 00:19
-Welcome to the final lesson of this course! In our journey so far, we’ve learned exactly what AI agents are, their different components, and how to make them resilient. So in this lesson, we’ll talk about best practices you can adopt, as you work with and build agentic systems in the real world.
-2. Best Practices Using Off-the Shelf Agentic Tools
-00:19 - 00:29
-First, let’s focus on best practices when using an off-the-shelf tool. These tools can range from coding assistants to deep research assistants, and more.
-3. Best Practices Using Off-the Shelf Agentic Tools
-00:29 - 00:34
-The first best practice is that context and designing useful prompts are still essential.
-1 Image generated with GPT-4o
-4. Design Useful Prompts with Context
-00:34 - 00:56
-Regardless of the use case you’re working on, always provide detailed examples and context for the task you’re working on, and whatever you think would be helpful for the agent to know about the task. For example, if you’re working with a coding assistant to update code, providing context on your code, examples of desired outputs, and style guidelines to respect is essential.
-5. Best Practices Using Off-the Shelf Agentic Tools
-00:56 - 01:02
-The second best practice, is understand the agent's capabilities and limitations.
-1 Image generated with GPT-4o
-6. Understanding Capabilities and Limitations
-01:02 - 01:12
-These capabilities and limitations extend to what tools does it have access to? How up-to-date is its information? And more. Knowing these boundaries helps you work within them effectively.
-7. Best Practices Using Off-the Shelf Agentic Tools
-01:12 - 01:18
-The third best practice, is to always verify your agent’s output.
-1 Image generated with GPT-4o
-8. Always Verify Your Agent's Output
-01:18 - 01:33
-Agents are powered by large language models, which can hallucinate or misinterpret data, especially in complex scenarios. For important decisions, double-check the agent's work. Think of agents as talented assistants, not infallible oracles.
-1 DataCamp, https://www.datacamp.com/blog/ai-hallucination
-9. Best Practices Using Off-the Shelf Agentic Tools
-01:33 - 01:38
-The fourth best practice, is to always be mindful of costs.
-1 Image generated with GPT-4o
-10. Always Be Mindful of Costs
-01:38 - 02:01
-This is definitely tool-dependent and specific to the tool's pricing model. Many agentic tools operate on a pay-per-use pricing model and let you switch between different large language model providers. Having a good understanding of how expensive running one large language model is vs another can help you balance performance needs with budget constraints. When in doubt, check the tool documentation.
-1 Image generated with GPT-4o
-11. Best Practices Using Off-the Shelf Agentic Tools
-02:01 - 02:04
-Finally, use AI agents responsibly.
-1 Image generated with GPT-4o
-12. Use AI Agents Responsibly
-02:04 - 02:18
-Even with guardrails, be cautious about sharing confidential data or personally identifiable information with third-party tools. Assume anything you share could be logged or used for training unless explicitly stated otherwise.
-1 Image generated with GPT-4o
-13. Best Practices For Designing and Building AI Agents
-02:18 - 02:22
-Now, let’s focus on best practices if you’re building AI agents.
-14. Best Practices For Designing and Building AI Agents
-02:22 - 02:26
-First, always design for human intervention.
-1 Image generated with GPT-4o
-15. Always Design for Human Intervention
-02:26 - 02:45
-No matter how sophisticated your agent, there will be edge cases it can't handle. Build in clear escalation paths - when should the agent hand off to a human? How does it signal uncertainty? For example, an HR agent might handle vacation requests autonomously, but should escalate workplace complaints to human specialists.
-16. Best Practices For Designing and Building AI Agents
+Multi-Agent Design Patterns
+50 XP
+
+This course is also available on the mobile app. Continue learning on mobile.
+Transcript
+1. Multi-Agent Design Patterns
+00:00 - 00:10
+
+Welcome back! In this chapter, we'll focus on practical strategies for developing agents for scale, starting with multi-agent design patterns.
+2. Single agents
+00:10 - 00:20
+
+Single agents with access to multiple tools and clear prompts on how to use them, can perform well on a multitude of cases.
+3. Single agents
+00:20 - 00:31
+
+As this list of tools grows, it becomes harder and harder for the model to "reason" which tool it should use, and in which order it should call them in multi-step tasks.
+4. Multi-agents
+00:31 - 00:39
+
+Multi-agent systems use multiple specialized agents with their own sets of tools to separate task domains.
+5. Example: A web app multi-agent
+00:39 - 00:44
+
+For example, a multi-agent system for building web apps may consist of a design agent,
+6. Example: A web app multi-agent
+00:44 - 00:46
+
+a frontend developer agent,
+7. Example: A web app multi-agent
+00:46 - 00:49
+
+and a backend developer agent.
+8. Example: A web app multi-agent
+00:49 - 00:56
+
+There might even be a product manager agent to aid the collaboration and provide feedback to the other agents.
+9. Multi-agent design patterns
+00:56 - 01:17
+
+There are several emerging multi-agent design patterns or architectures, and we'll focus on two of the most popular: network and supervisor. Please note that because this is an emerging field, you may see slightly differing terminology between organizations and frameworks. We'll be using those defined by LangChain, a leading AI framework.
+
+    1 https://langchain-ai.github.io/langgraph/concepts/multi_agent/#multi-agent-architectures
+
+10. Network multi-agents
+01:17 - 01:26
+
+First, let's discuss, network multi-agents, also commonly called a "swarm" or "the decentralized pattern". In this architecture,
+
+    1 https://langchain-ai.github.io/langgraph/concepts/multi_agent/#network
+
+11. Network multi-agents
+01:26 - 01:30
+
+a user input is sent to a pre-defined default agent, and then
+12. Network multi-agents
+01:30 - 01:32
+
+the agents can choose to handoff to
+13. Network multi-agents
+01:32 - 01:34
+
+another to complete tasks
+14. Network multi-agents
+01:34 - 01:35
+
+and reach a solution.
+15. Network multi-agents
+01:35 - 01:53
+
+For example, a company may have an agent to help with the onboarding of new employees. Their question may be first sent to an agent with access to source-of-truth articles and documents. If the information cannot be found there, or the question doesn't relate to the topics in those documents,
+16. Network multi-agents
+01:53 - 02:04
+
+the agent may handoff to another whose purpose is to check internal messaging systems like Slack or Teams to see if similar questions have been asked before.
+17. Network multi-agents
+02:04 - 02:08
+
+If it finds an answer, it will respond to the user.
+18. Supervisor multi-agents
+02:08 - 02:45
+
+Next up is the supervisor multi-agent architecture. Here, agents are arranged hierarchically, with a supervisor that receives user inputs and worker agent below each with their own set of tools. The supervisor reasons on the tasks required and hands the off to an appropriate worker agent. The workers execute their tools, and return the tool outputs back to the supervisor. The supervisor checks if the task has been completed, and responds to the user. Here, only the supervisor has the ability to respond to the user and end the workflow.
+19. Supervisor multi-agents
 02:45 - 02:49
-Second, critically evaluate if you even need an AI agent.
-1 Image generated with GPT-4o
-17. Do You Really Need an Agent?
-02:49 - 03:01
-Remember our discussion in chapter 1? Agents excel at complex decisions, unstructured data, and adaptive problem-solving. If your workflow is predictable and rule-based, traditional automation might be better.
-18. Best Practices For Designing and Building AI Agents
-03:01 - 03:05
-Third, be mindful of costs and performance trade-offs.
-1 Image generated with GPT-4o
-19. Always Be Mindful of Costs
-03:05 - 03:17
-Each model call, tool use, and reasoning cycle costs time and money. You should consider deeply how many times your agent will be called every day, what the expected ROI is from the system, versus the projected costs.
-1 Image generated with GPT-4o
-20. Best Practices For Designing and Building AI Agents
-03:17 - 03:20
-Fourth, start simple, and iterate.
-1 Image generated with GPT-4o
-21. Start Simple and Iterate
-03:20 - 03:29
-Begin with a single agent and basic tools. Add complexity only when you hit clear limitations. It's easier to expand a working system than to debug an over-engineered one.
-1 Image generated with GPT-4o
-22. Best Practices For Designing and Building AI Agents
-03:29 - 03:34
-Finally, just like any software, monitor and measure everything.
-1 Image generated with GPT-4o
-23. Monitor Everything
-03:34 - 03:40
-Track success rates, response times, costs, and user satisfaction. This will be key for improving your system.
-1 Image generated with GPT-4o
-24. Let's Practice!
-03:40 - 03:47
-Now that we’ve gotten our best practices, let’s practice our skills one more time.
+
+For a supervisor multi-agent system in customer support,
+20. Supervisor multi-agents
+02:49 - 02:55
+
+the supervisor can retrieve information from various places like a website, database, and more through the workers.
+21. Supervisor multi-agents
+02:55 - 03:06
+
+When the workers respond to the supervisor, they can use this information to generate a friendly and professional response for the user, allowing the worker agents to focus purely on their retrieval tasks.
+22. Let's practice!
+03:06 - 03:10
+
+Let's apply this knowledge in the exercises. 

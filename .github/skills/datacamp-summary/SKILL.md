@@ -1,80 +1,105 @@
----
+﻿---
 name: datacamp-summary
-description: Reads a Datacamp transcript and exercise text files, then produces a notebook‑friendly markdown summary with an overview, key concepts, and exercise notes.
+description: Reads a Datacamp transcript and exercise text files, then produces a notebook-friendly markdown summary with an overview, key concepts, and exercise notes.
 ---
 
 # Datacamp Summarizer
 
-This skill helps the agent turn raw lesson materials (a `Transcript.txt` and an `Exercise.txt`) into a polished, markdown‑formatted summary suitable for inclusion in Jupyter notebooks. The summary is written as a neutral module overview rather than referencing a video or lecture.
-**What the Skill Does**
+This skill turns raw lesson materials (`Transcript.txt` and `Exercise.txt`) into a polished, multi-cell Jupyter notebook summary. Summaries are written as neutral module notes - never referencing a video or lecture.
 
-- **Reads** the contents of a transcript and an exercise text file.
-- **Synthesizes** the material into concise modules.
-- **Outputs** a summary in markdown with example headings like `## Overview`, `## Key Concepts`, and `## Exercise Notes`.
+---
 
-**Inputs**
+## Heading & Formatting Rules (CRITICAL)
 
-The agent can provide either:
+All reference notebooks use **bold text** for every title and section header. Markdown heading syntax (`#`, `##`, `###`) is **never used**. Any agent producing `#`-style headings will create output that is visually inconsistent with the course style.
 
-1. **File paths** to `Transcript.txt` and `Exercise.txt`, or  
-2. **Raw text content** from those files (e.g. inline copy/paste).
+| Element | Correct | Wrong |
+|---|---|---|
+| Chapter / section title | `**Bold Title**` | `# Title` or `## Title` |
+| Sub-section label | `**Bold Sub-section**` | `### Sub-section` |
+| Divider between major sections | `---` in its own cell | blank lines only |
+| Bullet term + definition | `- **Term**: description` | `- term: description` |
 
-Both inputs are optional but at least one form of each file must be supplied.
+> **Reference:** Open any notebook in `.github/skills/datacamp-summary/references/` to see this style in action.
 
-**Output**
+---
 
-A single markdown string that:
+## Notebook Cell Structure (Template)
 
-- Is formatted with notebook‑friendly headings.
-- Contains sections such as:
+Each summary must be spread across **separate cells** in this exact order:
 
-  ```markdown
-  ## Overview
-  ...brief conceptual introduction and examples...
+### Cell 1 - Chapter Title
+```markdown
+**{Course Chapter Title}**
 
-  ## Key Concepts
-  - concept one
-  - concept two
-  - …
+{One-line description of the chapter topic. Include instructor name if relevant.}
+```
 
-  ## Exercise Notes
-  …important hints or results from the exercise…
-  ```
+### Cell 2 - Overview
+```markdown
+**Overview**
 
-- Is concise (see tips below) and ready to drop into a `.ipynb` cell.
+{2-4 sentences summarising the main concept, key example used, and what the learner gains. No bullet points - prose only.}
+```
 
-**When to Use This Skill**
+### Cell 3 - Key Concepts
+```markdown
+**Key Concepts**
 
-Invoke this skill when the user wants an agent to:
+- **{Term}**: {one-line definition or explanation}
+- **{Term}**: {one-line definition}
+- ...
+```
 
-- **Summarize a Datacamp lesson** for review, sharing, or study notes without mentioning the medium.
-- **Transform transcripts/exercises** into readable documentation.
-- **Prepare notebook content** as neutral module notes.
+> If the **visual-summary** skill is also active, visual cells are inserted **after Cell 3 and before Cell 4**.
 
-**Example Prompts**
+### Cell 4 - Separator
+```markdown
+---
+```
 
-- "Here are the transcript and exercise files. Can you create a module-style summary for a notebook?"
-- "Read `Transcript.txt` and `Exercise.txt` and give me a markdown overview with key concepts."
-- "Generate a concise conceptual summary of these texts for my notes."
+### Cell 5 - Exercise
+```markdown
+**Exercise: {Exercise Title}**
 
-**Sample Workflow**
+{Brief scenario description - 2-3 sentences.}
 
-1. **Read files**: load `Transcript.txt` and `Exercise.txt` (either from disk or from provided text).
-2. **Identify key points** in the transcript: main topics, examples, definitions.
-3. **Extract exercise insights**: what the task asked for, any notable output or errors.
-4. **Compose markdown** sections:
+**Question:** {Question text}
 
-   - `## Overview` – a paragraph or two capturing the main concept and examples.
-   - `## Key Concepts` – bulleted list of the most important ideas.
-   - `## Exercise Notes` – description of the exercise goal and any tips.
+- (1) {Option}
+- (2) {Option}
+- (3) **{Correct option - wrapped in bold}**
+- (4) {Option}
 
-5. **Return** the assembled markdown string to the caller.
+*Answer: ({number})*
+```
 
-**Tips & Clarifications**
+---
 
-- **Length**: aim for brevity – a few sentences per section, and no more than 1–2 paragraphs in total.
-- **Formatting**: use proper markdown headings and bullets; avoid raw code unless it’s part of an exercise note.
-- **Manual Review**: summaries are generated automatically and may need tweaking; encourage the user to proofread.
-- **Notebook‑friendly**: keep the output clean so users can paste it directly into a Jupyter cell without further editing.
+## Inputs
 
-> **Note:** This skill doesn’t execute code; it only interprets text files. If the transcript is very long, focus on high‑level themes rather than transcribing everything.
+1. **File paths** to `Transcript.txt` and `Exercise.txt`, or
+2. **Raw text content** from those files.
+
+Both are optional but at least one form of each must be supplied.
+
+---
+
+## Sample Workflow
+
+1. **Read** `Transcript.txt` and `Exercise.txt`.
+2. **Identify**: chapter title, main concept, key example, terms, and definitions.
+3. **Compose** cells following the Cell Structure template above - bold headings only, no `#` syntax.
+4. **Extract** exercise: scenario, answer options, and correct answer from `Exercise.txt`.
+5. **Insert** each section as a separate notebook cell.
+
+---
+
+## Tips & Clarifications
+
+- **Bold, not headings**: `**Title**` is the intentional style of the course reference notebooks.
+- **One concept per cell**: keep each cell focused; visual aids always get their own cells.
+- **Brevity**: a few sentences per section; do not transcribe the full lesson.
+- **Manual Review**: generated content may need tweaking - prompt the user to proofread.
+
+> **References:** See `.github/skills/datacamp-summary/references/` for completed example notebooks demonstrating correct style.

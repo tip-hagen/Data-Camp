@@ -1,70 +1,113 @@
----
+﻿---
 name: visual-summary
 description: Reads a transcript and/or exercise text and produces a markdown summary along with a simple visual aid (diagram or table) to accompany the notes.
 ---
 
 # Visual Summary
 
-This skill augments the datacamp-summary capability by generating a lightweight visual representation that complements the markdown overview. The goal is to make concepts more memorable by pairing text with a basic diagram or structured table.
+This skill augments the **datacamp-summary** skill by adding lightweight visual representations - Mermaid diagrams or markdown tables - that make concepts more memorable. Always apply this skill **in combination** with datacamp-summary; do not use it standalone.
 
-**What the Skill Does**
+---
 
-- **Consumes** transcript text and optional exercise material.
-- **Creates** a concise markdown summary (overview, key concepts) as before.
-- **Generates** a simple visual aid such as a Mermaid diagram, ASCII art flowchart, or tabular representation of core ideas.
+## Heading & Formatting Rules (CRITICAL)
 
-**Inputs**
+Visual cells must follow the same bold-heading convention as the rest of the notebook. See the datacamp-summary skill for the full rule table. Summary:
 
-- `Transcript.txt` and optional `Exercise.txt` content (path or raw text).
-- An optional hint specifying preferred visual type (`diagram`, `table`, `list`).
+- Use `**Visual Aid: {Descriptive Name}**` as the cell title - **not** `## Visual Aid`.
+- Add one italicised caption sentence below the diagram explaining what it shows.
 
-**Output**
+---
 
-A markdown string containing both the textual summary and the visual aid. For example:
+## One Diagram Per Cell (CRITICAL)
+
+Placing multiple Mermaid blocks in a single cell causes them to **overlap and break rendering**. Every diagram or table must be in its **own separate notebook cell**.
+
+| Rule | Correct | Wrong |
+|---|---|---|
+| Diagram isolation | One Mermaid block per cell | Two `mermaid` blocks in one cell |
+| Cell title | `**Visual Aid: Name**` (bold) | `## Visual Aid` (heading) |
+| Node labels | `["Multi word label"]` in quotes | `[Multi word]` unquoted |
+| Newlines in labels | Use plain short text or separate nodes | `\n` inside a label string |
+| Node text size | `classDef ... font-size:20px` | No classDef (renders too small) |
+
+---
+
+## Visual Cell Template
+
+**For diagrams:**
 
 ```markdown
-## Overview
-...
+**Visual Aid: {Descriptive Name}**
 
-## Visual Aid
+*{One sentence explaining what the diagram shows.}*
+
 ```mermaid
-graph TD;
-  Model-->Tools;
-  Tools-->Orchestration;
-  Orchestration-->Model;
+graph LR;
+    A(["Node Label"]) --> B(["Node Label"]);
+    classDef styleA fill:#4285F4,stroke:#0F9D58,stroke-width:2px,font-size:20px;
+    class A,B styleA;
+```
 ```
 
-## Key Concepts
-- ...
+**For tables:**
+
+```markdown
+**Visual Aid: {Descriptive Name}**
+
+*{One sentence explaining what the table compares.}*
+
+| Column 1 | Column 2 | Column 3 |
+|---|---|---|
+| value | value | value |
 ```
 
-The visual aid should be simple enough to render in notebooks using Mermaid or plain markdown tables.
+---
 
-**When to Use This Skill**
+## Cell Placement
 
-Invoke when users want both text and a diagram/table summarizing the material. It’s especially useful for lessons with distinct components or workflows.
+Visual cells are inserted **after Key Concepts and before the `---` separator**:
 
-**Example Prompts**
+```
+Cell 1  - Chapter Title
+Cell 2  - Overview
+Cell 3  - Key Concepts
+Cell 4  - [Visual Aid: Diagram 1]   <- one cell per diagram
+Cell 5  - [Visual Aid: Diagram 2]   <- one cell per diagram
+Cell 6  - [Visual Aid: Table]       <- one cell per table
+Cell 7  - ---  (separator)
+Cell 8  - Exercise
+```
 
-- "Summarize this transcript and give me a diagram of the agentic components."
-- "Create notes and include a visual table comparing agency levels."
-- "Provide a markdown summary plus a Mermaid flowchart." 
+---
 
-**Workflow**
+## Mermaid Style Reference
 
-1. Read input files or text.
-2. Identify main parts and relationships.
-3. Draft summary paragraphs as in datacamp-summary.
-4. Choose a visualization type based on hints or content.
-5. Generate corresponding Mermaid or markdown table code.
-6. Return combined markdown.
+Based on reference notebooks, apply `classDef` to every diagram for consistent node colours and readable font size. Always set `font-size:20px` in every `classDef`.
 
-**Tips & Clarifications**
+**Recommended fill colours:**
 
-- Visuals should remain simple; avoid complex graphs that won’t render.
-- Prefer Mermaid for easy notebook rendering (ensure cells use `%%mermaid` if necessary).
-- Take care with Mermaid syntax: avoid unescaped `[` or `]` inside labels, wrap multi-word labels in quotes, and don’t mix subgraph keywords with bracket notation. These precautions prevent parse errors like the one seen earlier.
-- If content lacks clear structure, fall back to bulleted lists instead of diagrams.
-- Encourage users to review and tweak the visual manually if needed.
+| Node type | Fill | Stroke |
+|---|---|---|
+| User / neutral | `#CCCCCC` | `#333` |
+| Model / primary | `#4285F4` | `#0F9D58` |
+| Tools / actions | `#DB4437` | `#F4B400` |
+| External / data | `#A142F4` | `#333` |
+| Orchestration | `#0F9D58` | `#333` |
 
-> This skill focuses on supplementing summaries with visuals; it does not perform advanced graphic design or external image generation.
+---
+
+## Fallback
+
+If the content lacks clear relationships to diagram, use a **markdown table** instead. Never force a diagram onto flat comparison lists.
+
+---
+
+## Workflow
+
+1. Read transcript and exercise files (delegated from datacamp-summary).
+2. Identify components with relationships -> prefer **Mermaid diagram**.
+3. Identify comparisons or criteria lists -> prefer **markdown table**.
+4. Create one cell per visual, using the Visual Cell Template above.
+5. Insert visual cells after Key Concepts, before the separator cell.
+
+> **References:** See `.github/skills/visual-summary/references/` for completed example notebooks demonstrating correct diagram style and cell placement.
