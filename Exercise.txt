@@ -1,0 +1,31 @@
+Performance Review
+As part of your rollout of the AI Agent Usage Policy at GlobalTech Solutions, you are auditing how employees use off-the-shelf agentic tools.
+
+You notice that one employee is using an AI agent to generate automated sales emails that leverage product summaries. However, they copy and paste the output directly into emails without checking for accuracy, despite a recent incident where an agent included outdated pricing.
+
+What is the best practice not being followed here?
+
+Answer the question
+50XP
+Possible Answers
+Select one answer
+
+Design useful prompts with context.
+PRESS
+1
+
+Understand the agent's capabilities and limitations.
+PRESS
+2
+
+Always verify your agent's output.
+PRESS
+3
+
+Always be mindful of costs.
+PRESS
+4
+
+Use AI agents responsibly.
+PRESS
+5

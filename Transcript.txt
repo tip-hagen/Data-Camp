@@ -1,0 +1,88 @@
+1. Agentic Systems in the Real World
+00:00 - 00:19
+Welcome to the final lesson of this course! In our journey so far, we’ve learned exactly what AI agents are, their different components, and how to make them resilient. So in this lesson, we’ll talk about best practices you can adopt, as you work with and build agentic systems in the real world.
+2. Best Practices Using Off-the Shelf Agentic Tools
+00:19 - 00:29
+First, let’s focus on best practices when using an off-the-shelf tool. These tools can range from coding assistants to deep research assistants, and more.
+3. Best Practices Using Off-the Shelf Agentic Tools
+00:29 - 00:34
+The first best practice is that context and designing useful prompts are still essential.
+1 Image generated with GPT-4o
+4. Design Useful Prompts with Context
+00:34 - 00:56
+Regardless of the use case you’re working on, always provide detailed examples and context for the task you’re working on, and whatever you think would be helpful for the agent to know about the task. For example, if you’re working with a coding assistant to update code, providing context on your code, examples of desired outputs, and style guidelines to respect is essential.
+5. Best Practices Using Off-the Shelf Agentic Tools
+00:56 - 01:02
+The second best practice, is understand the agent's capabilities and limitations.
+1 Image generated with GPT-4o
+6. Understanding Capabilities and Limitations
+01:02 - 01:12
+These capabilities and limitations extend to what tools does it have access to? How up-to-date is its information? And more. Knowing these boundaries helps you work within them effectively.
+7. Best Practices Using Off-the Shelf Agentic Tools
+01:12 - 01:18
+The third best practice, is to always verify your agent’s output.
+1 Image generated with GPT-4o
+8. Always Verify Your Agent's Output
+01:18 - 01:33
+Agents are powered by large language models, which can hallucinate or misinterpret data, especially in complex scenarios. For important decisions, double-check the agent's work. Think of agents as talented assistants, not infallible oracles.
+1 DataCamp, https://www.datacamp.com/blog/ai-hallucination
+9. Best Practices Using Off-the Shelf Agentic Tools
+01:33 - 01:38
+The fourth best practice, is to always be mindful of costs.
+1 Image generated with GPT-4o
+10. Always Be Mindful of Costs
+01:38 - 02:01
+This is definitely tool-dependent and specific to the tool's pricing model. Many agentic tools operate on a pay-per-use pricing model and let you switch between different large language model providers. Having a good understanding of how expensive running one large language model is vs another can help you balance performance needs with budget constraints. When in doubt, check the tool documentation.
+1 Image generated with GPT-4o
+11. Best Practices Using Off-the Shelf Agentic Tools
+02:01 - 02:04
+Finally, use AI agents responsibly.
+1 Image generated with GPT-4o
+12. Use AI Agents Responsibly
+02:04 - 02:18
+Even with guardrails, be cautious about sharing confidential data or personally identifiable information with third-party tools. Assume anything you share could be logged or used for training unless explicitly stated otherwise.
+1 Image generated with GPT-4o
+13. Best Practices For Designing and Building AI Agents
+02:18 - 02:22
+Now, let’s focus on best practices if you’re building AI agents.
+14. Best Practices For Designing and Building AI Agents
+02:22 - 02:26
+First, always design for human intervention.
+1 Image generated with GPT-4o
+15. Always Design for Human Intervention
+02:26 - 02:45
+No matter how sophisticated your agent, there will be edge cases it can't handle. Build in clear escalation paths - when should the agent hand off to a human? How does it signal uncertainty? For example, an HR agent might handle vacation requests autonomously, but should escalate workplace complaints to human specialists.
+16. Best Practices For Designing and Building AI Agents
+02:45 - 02:49
+Second, critically evaluate if you even need an AI agent.
+1 Image generated with GPT-4o
+17. Do You Really Need an Agent?
+02:49 - 03:01
+Remember our discussion in chapter 1? Agents excel at complex decisions, unstructured data, and adaptive problem-solving. If your workflow is predictable and rule-based, traditional automation might be better.
+18. Best Practices For Designing and Building AI Agents
+03:01 - 03:05
+Third, be mindful of costs and performance trade-offs.
+1 Image generated with GPT-4o
+19. Always Be Mindful of Costs
+03:05 - 03:17
+Each model call, tool use, and reasoning cycle costs time and money. You should consider deeply how many times your agent will be called every day, what the expected ROI is from the system, versus the projected costs.
+1 Image generated with GPT-4o
+20. Best Practices For Designing and Building AI Agents
+03:17 - 03:20
+Fourth, start simple, and iterate.
+1 Image generated with GPT-4o
+21. Start Simple and Iterate
+03:20 - 03:29
+Begin with a single agent and basic tools. Add complexity only when you hit clear limitations. It's easier to expand a working system than to debug an over-engineered one.
+1 Image generated with GPT-4o
+22. Best Practices For Designing and Building AI Agents
+03:29 - 03:34
+Finally, just like any software, monitor and measure everything.
+1 Image generated with GPT-4o
+23. Monitor Everything
+03:34 - 03:40
+Track success rates, response times, costs, and user satisfaction. This will be key for improving your system.
+1 Image generated with GPT-4o
+24. Let's Practice!
+03:40 - 03:47
+Now that we’ve gotten our best practices, let’s practice our skills one more time.
