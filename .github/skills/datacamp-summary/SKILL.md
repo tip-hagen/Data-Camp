@@ -1,4 +1,4 @@
-﻿---
+---
 name: datacamp-summary
 description: Reads a Datacamp transcript and exercise text files, then produces a notebook-friendly markdown summary with an overview, key concepts, and exercise notes.
 ---

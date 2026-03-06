@@ -1,99 +1,43 @@
-Multi-Agent Design Patterns
+Prompt engineering basics
 50 XP
-
-This course is also available on the mobile app. Continue learning on mobile.
 Transcript
-1. Multi-Agent Design Patterns
+1. Prompt engineering basics
 00:00 - 00:10
 
-Welcome back! In this chapter, we'll focus on practical strategies for developing agents for scale, starting with multi-agent design patterns.
-2. Single agents
-00:10 - 00:20
+Welcome back! In this next video, we will explore how the phrasing of our instructions can significantly impact the model’s performance.
+2. What is a prompt?
+00:10 - 00:15
 
-Single agents with access to multiple tools and clear prompts on how to use them, can perform well on a multitude of cases.
-3. Single agents
-00:20 - 00:31
+The input or instruction we give to an AI model is called a “prompt”.
+3. What is a prompt?
+00:15 - 00:22
 
-As this list of tools grows, it becomes harder and harder for the model to "reason" which tool it should use, and in which order it should call them in multi-step tasks.
-4. Multi-agents
-00:31 - 00:39
+Given the very same model, the way we write prompts has a significant impact on the model’s output.
+4. What is a prompt?
+00:22 - 00:50
 
-Multi-agent systems use multiple specialized agents with their own sets of tools to separate task domains.
-5. Example: A web app multi-agent
-00:39 - 00:44
+Let’s imagine a movie scene: It’s raining. The main character gets into the back seat of a taxi, suitcase in hand. The driver looks in the mirror and asks: “Where to?”. The man just stares out the window and replies: “Anywhere”. So the taxi drives, left, right, past neon signs and empty gas stations, until eventually it comes to a stop.
+5. What is a prompt?
+00:50 - 01:29
 
-For example, a multi-agent system for building web apps may consist of a design agent,
-6. Example: A web app multi-agent
-00:44 - 00:46
+Now let's rewind the scene. Same environment. Same cab. But this time, the character says: “Take me to 23 Main Street. Avoid the highway”. The driver nods and heads straight to the destination. In this analogy, the driver is the AI model, and our prompt is the destination. A prompt is simply what we type to tell the AI what we want. If we’re vague, the AI might guess and produce a less helpful output. If we’re specific, the AI better understands our goal and generates a more accurate result.
+6. Prompt quality
+01:29 - 02:13
 
-a frontend developer agent,
-7. Example: A web app multi-agent
-00:46 - 00:49
+In general, there’s no strict definition of a bad prompt, but vague or overly general instructions often lead to lower-quality results. For example, prompts like “Fix this code” lack clarity and intent. In this case, the model has to guess the goal and may take actions we didn’t intend. This prompt becomes much more effective when we provide a clear goal and the desired boundaries. For example, we could rewrite the previous prompts like this: “Fix this Python function to handle division by zero errors. Keep the structure the same, and only change the except block”
+7. Prompt quality
+02:13 - 03:02
 
-and a backend developer agent.
-8. Example: A web app multi-agent
-00:49 - 00:56
+Another important aspect is the level of detail we include in our prompts. In general, the more specific our prompt can be, the better the model’s output. For example, the prompt “Generate a Python function to reverse a string” is not necessarily a bad prompt, but it may lack some detail. Since we might already know the constraints of the function we want, we can write the prompt with more detailed instructions. For example, we could say instead: “Generate a Python function that reverses a string, handles Unicode characters, and ignores trailing whitespace.” This second version gives the model clearer direction and reduces ambiguity.
+8. Components of a prompt
+03:02 - 03:31
 
-There might even be a product manager agent to aid the collaboration and provide feedback to the other agents.
-9. Multi-agent design patterns
-00:56 - 01:17
+At this point, you might be wondering: "What makes these prompts effective?" A strong prompt usually includes three parts: an instruction, relevant context, and any specific constraints. For example, if we revisit the first example of a good prompt that we discussed earlier: “Fix this Python function to handle division by zero errors. Keep the structure the same, and only change the except block”.
+9. Components of a prompt
+03:31 - 03:49
 
-There are several emerging multi-agent design patterns or architectures, and we'll focus on two of the most popular: network and supervisor. Please note that because this is an emerging field, you may see slightly differing terminology between organizations and frameworks. We'll be using those defined by LangChain, a leading AI framework.
+We can easily break it down into the three components: an instruction to "Fix this function"; some context, "Python code with a divide-by-zero error"; and a constraint to "Only modify the try-except block"
+10. Let's practice!
+03:49 - 03:55
 
-    1 https://langchain-ai.github.io/langgraph/concepts/multi_agent/#multi-agent-architectures
-
-10. Network multi-agents
-01:17 - 01:26
-
-First, let's discuss, network multi-agents, also commonly called a "swarm" or "the decentralized pattern". In this architecture,
-
-    1 https://langchain-ai.github.io/langgraph/concepts/multi_agent/#network
-
-11. Network multi-agents
-01:26 - 01:30
-
-a user input is sent to a pre-defined default agent, and then
-12. Network multi-agents
-01:30 - 01:32
-
-the agents can choose to handoff to
-13. Network multi-agents
-01:32 - 01:34
-
-another to complete tasks
-14. Network multi-agents
-01:34 - 01:35
-
-and reach a solution.
-15. Network multi-agents
-01:35 - 01:53
-
-For example, a company may have an agent to help with the onboarding of new employees. Their question may be first sent to an agent with access to source-of-truth articles and documents. If the information cannot be found there, or the question doesn't relate to the topics in those documents,
-16. Network multi-agents
-01:53 - 02:04
-
-the agent may handoff to another whose purpose is to check internal messaging systems like Slack or Teams to see if similar questions have been asked before.
-17. Network multi-agents
-02:04 - 02:08
-
-If it finds an answer, it will respond to the user.
-18. Supervisor multi-agents
-02:08 - 02:45
-
-Next up is the supervisor multi-agent architecture. Here, agents are arranged hierarchically, with a supervisor that receives user inputs and worker agent below each with their own set of tools. The supervisor reasons on the tasks required and hands the off to an appropriate worker agent. The workers execute their tools, and return the tool outputs back to the supervisor. The supervisor checks if the task has been completed, and responds to the user. Here, only the supervisor has the ability to respond to the user and end the workflow.
-19. Supervisor multi-agents
-02:45 - 02:49
-
-For a supervisor multi-agent system in customer support,
-20. Supervisor multi-agents
-02:49 - 02:55
-
-the supervisor can retrieve information from various places like a website, database, and more through the workers.
-21. Supervisor multi-agents
-02:55 - 03:06
-
-When the workers respond to the supervisor, they can use this information to generate a friendly and professional response for the user, allowing the worker agents to focus purely on their retrieval tasks.
-22. Let's practice!
-03:06 - 03:10
-
-Let's apply this knowledge in the exercises. 
+Let’s pause here for a moment and try out what we have just learned! 
